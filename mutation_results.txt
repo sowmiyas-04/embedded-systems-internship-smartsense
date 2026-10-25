@@ -1,0 +1,14 @@
+M1  Hysteresis 2.0 C -> 0 | T06
+M2  Fault debounce 3 -> 1 | T08,T09
+M3  Filter window 8 -> 4 | T05
+M4  Alarm compare >= becomes > | T05
+M5  RX overflow check removed | T15
+M6  Case-folding removed | T12
+M7  Missed-sample counter removed | T17
+M8  Alarm LED period 200 -> 400 ms | T07
+M9  Bad samples fed to filter | T08,T09,T22
+M10 TX overflow check removed | T21
+M11 Recovery skips filter reset | T22
+M12 SET range check removed | T11
+M13 UART ready-gate removed | T18
+M14 Over-long-line guard removed | T15,T16

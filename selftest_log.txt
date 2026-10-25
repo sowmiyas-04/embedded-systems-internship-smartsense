@@ -1,0 +1,27 @@
+SmartSense self-test (host simulation)
+======================================================================
+[PASS] T01  Init: state INIT, LED off, tick 0, thr 30C                 | state=INIT led=0 ms=0 thr=30
+[PASS] T02  Timebase: 1000 ticks -> 10 samples, none missed            | ms=1000 samples=10 missed=0
+[PASS] T03  ADC->temp: 0->0.0C, 51->24.9C, 1023->500.0C                | c10(0)=0 c10(51)=249 c10(1023)=5000
+[PASS] T04  25C input -> NORMAL, avg 24.9C                             | state=NORMAL avg=249
+[PASS] T05  Step 25->35C: filter delays alarm to 4th sample            | k=3: NORMAL avg=287 | k=4: ALARM avg=300
+[PASS] T06  Hysteresis: holds ALARM at 28.8C, clears at 26.8C, 1 alarm | at28.8=ALARM at26.8=NORMAL alarms=1
+[PASS] T07  LED: NORMAL=1 pulse/s, ALARM=5 blinks/s                    | normal=1 alarm=5
+[PASS] T08  Fault: open sensor -> FAULT (LED solid), 3-sample recovery | fault=1 solid=1 after2good=FAULT after3good=NORMAL
+[PASS] T09  Debounce: 1 bad sample ignored; ADC=900 -> FAULT           | glitch_ok=1 state=FAULT
+[PASS] T10  UART STATUS reports STATE=NORMAL and THR=30C               | reply="STATUS: T=24.9C AVG=24.9C STATE=NORMAL THR=30C LED=AUTO N=3"
+[PASS] T11  SET: accepts 40; rejects 5, abc, 40x, 121                  | thr=40 errs=4
+[PASS] T12  Commands are case-insensitive, CRLF tolerated              | reply="STATUS: T=24.9C AVG=24.9C STATE=NORMAL T"
+[PASS] T13  LED override ON/OFF beats ALARM pattern; AUTO restores     | on=1 steady=1 off=1
+[PASS] T14  Unknown command -> ERR UNKNOWN                             | reply="ERR UNKNOWN (try HELP)
+"
+[PASS] T15  RX ring overflow: 37 bytes dropped, recovers, next cmd OK  | overflow=37
+[PASS] T16  Over-long line rejected, assembler resyncs                 | errs=1
+[PASS] T17  Stalled main loop: missed sample detected, recovers        | missed=1 samples=1
+[PASS] T18  TX paced at 9600 baud (<=106 B in 110 ms); HELP intact, no drops | sent@110ms=105 final=114/114
+[PASS] T19  STREAM ON -> 3 telemetry lines in 3.1 s; OFF silences      | on=3 off=0
+[PASS] T20  Raising threshold live clears alarm on next sample         | was_alarm=1 now=NORMAL
+[PASS] T21  TX ring overflow: bytes dropped+counted, ring stays consistent | dropped=2 sent=511 head==tail:1
+[PASS] T22  Recovery flushes stale filter history (35C seen at once)   | state=ALARM avg=351
+======================================================================
+RESULT: 22 passed, 0 failed, 22 total

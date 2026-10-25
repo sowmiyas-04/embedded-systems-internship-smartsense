@@ -1,0 +1,2 @@
+gcc -std=c99 -Wall -Wextra -Wpedantic -O2 -DSIMULATION smartsense_firmware.c
+Result: 0 warnings, 0 errors (gcc 13.3.0, Ubuntu 24.04)
